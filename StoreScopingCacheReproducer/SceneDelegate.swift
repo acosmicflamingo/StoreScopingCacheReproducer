@@ -2,12 +2,9 @@ import ComposableArchitecture
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-  let store = Store(
-     initialState: AppMain.State()
-   ) {
-     AppMain()
-   }
-
+  let store = Store(initialState: AppMain.State()) {
+    AppMain()
+  }
 
   var window: UIWindow?
 
@@ -17,12 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     options connectionOptions: UIScene.ConnectionOptions
   ) {
     if let windowScene = scene as? UIWindowScene {
-      let viewController = MusicLibraryViewController(
-        store: store.scope(
-          state: { $0.musicLibrary },
-          action: { .musicLibrary($0) }
-        )
-      )
+      let viewController = AppMainViewController(store: store)
       let window = UIWindow(windowScene: windowScene)
       window.rootViewController = viewController
       self.window = window
